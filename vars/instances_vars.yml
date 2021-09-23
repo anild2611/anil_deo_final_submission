@@ -1,21 +1,31 @@
 ---
 instances:
-  - name: server1
+  - name: app1
     keypair: 9590-keypair
     image: rhel-8.3
     flavor: GLOBAL-CPU_4_Memory_8192_Disk_30_flavor
     security_group: 9590-HostSG
     internal_network: 9590-dev-network
     metadata:
-      AnsibleGroup: osp_instances
+      AnsibleGroup: app_servers
       deployment_name: dev
 
-  - name: server2
+  - name: appdb1
     keypair: 9590-keypair
     image: rhel-8.3
     flavor: GLOBAL-CPU_4_Memory_8192_Disk_30_flavor
     security_group: 9590-HostSG
     internal_network: 9590-dev-network
     metadata:
-      AnsibleGroup: osp_instances
+      AnsibleGroup: database_servers
+      deployment_name: dev
+
+  - name: frontend1
+    keypair: 9590-keypair
+    image: rhel-8.3
+    flavor: GLOBAL-CPU_4_Memory_8192_Disk_30_flavor
+    security_group: 9590-HostSG
+    internal_network: 9590-dev-network
+    metadata:
+      AnsibleGroup: load_balancers
       deployment_name: dev
