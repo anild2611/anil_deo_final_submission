@@ -9,11 +9,11 @@
     #postgres_rhel7_repo: "https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_rhel8_repos: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
     postgres_packages:
-      - postgresql12 
-      - postgresql12-server 
-      - postgresql12-contrib 
-      - postgresql12-libs
-    postgres_library: python-psycopg2
+      - postgresql12.x86_64 
+      - postgresql12-server.x86_64 
+      - postgresql12-contrib.x86_64
+      - postgresql12-libs.x86_64
+    postgres_library: python3-psycopg2
     postgres_12_data_dir: /var/lib/pgsql/12/data
     postgres_12_bin_path: /usr/pgsql-12/bin
     postgres_service: postgresql-12.service
@@ -34,9 +34,11 @@
   tasks:
 
     - name: Install Postgres packages
+      become: yes
       package:
         name: "{{ __package }}"
         state: present
+        disable_gpg_check: True
       loop: 
         - "{{ postgres_rhel8_repos }}"        
         - "{{ postgres_packages }}"
@@ -135,7 +137,7 @@
       - gcc
       - libtool
       - python3
-      - python-psycopg2
+      - python3-psycopg2
 
     pip_dependencies:
       - virtualenv
